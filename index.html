@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>ConectaUIDE - Psicología en la Ingeniería y Tecnología</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        :root {
+            /* Paleta basada en el logo UIDE */
+            --color-primario: #910047;   /* vinotinto UIDE */
+            --color-secundario: #EAAA01; /* dorado UIDE */
+            --color-acento: #EAAA01;
+            --color-fondo: #f8f4f7;
+            --texto-principal: #222222;
+            --texto-suave: #555555;
+            --blanco: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--texto-principal);
+            line-height: 1.6;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--blanco);
+            border-bottom: 1px solid #e0d3dd;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--color-secundario), var(--color-primario));
+        }
+
+        .logo-text {
+            font-weight: 700;
+            color: var(--color-primario);
+            letter-spacing: 0.03em;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 0.75rem;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--texto-suave);
+            font-size: 0.9rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+        }
+
+        nav a:hover {
+            background-color: var(--color-primario);
+            color: var(--blanco);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 3rem 1rem;
+        }
+
+        section {
+            margin: 2.5rem 0;
+            padding: 1.5rem;
+            background-color: var(--blanco);
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        section h1,
+        section h2,
+        section h3 {
+            margin-top: 0;
+        }
+
+        .portada {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: linear-gradient(135deg, var(--color-primario), #b0005d);
+            color: var(--blanco);
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .logo-uide {
+            max-width: 260px;
+            width: 60%;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .portada h1 {
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .portada h2 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-top: 0;
+        }
+
+        .portada-datos {
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .portada-datos p {
+            margin: 0.2rem 0;
+        }
+
+        .chip {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.18);
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            margin-top: 0.6rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--color-secundario);
+            color: #5a0030;
+            padding: 0.2rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .subtitulo {
+            font-size: 0.95rem;
+            color: var(--texto-suave);
+            margin-bottom: 1rem;
+        }
+
+        .col-2 {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 800px) {
+            .col-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .portada {
+                padding: 2.5rem 1rem;
+            }
+        }
+
+        .tarjeta {
+            border-radius: 14px;
+            border: 1px solid #e6dce4;
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.8rem;
+            background-color: #fdf9fb;
+        }
+
+        .tarjeta h3 {
+            margin-top: 0;
+            font-size: 1rem;
+            color: #5a0030;
+        }
+
+        .lista-limpia {
+            padding-left: 1.1rem;
+        }
+
+        .lista-limpia li {
+            margin-bottom: 0.3rem;
+        }
+
+        .quote {
+            border-left: 4px solid var(--color-primario);
+            padding-left: 0.8rem;
+            margin: 0.8rem 0;
+            font-size: 0.95rem;
+            color: var(--texto-suave);
+        }
+
+        .prototipos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .prototipo-card {
+            border-radius: 14px;
+            border: 1px solid #e2d6df;
+            background-color: #fdf9fb;
+            padding: 0.7rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .prototipo-card img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .tabla-simple {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin-top: 0.8rem;
+        }
+
+        .tabla-simple th,
+        .tabla-simple td {
+            border: 1px solid #e0d3dd;
+            padding: 0.5rem 0.6rem;
+        }
+
+        .tabla-simple th {
+            background-color: #f4e8f0;
+            color: #5a0030;
+        }
+
+        .ref-item {
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        #btn-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 0.6rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: 999px;
+            border: none;
+            background-color: var(--color-primario);
+            color: var(--blanco);
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            display: none;
+        }
+
+        #btn-top:hover {
+            background-color: #b0005d;
+        }
+
+        .small-muted {
+            font-size: 0.8rem;
+            color: var(--texto-suave);
+        }
+
+        .seccion-titulo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        .seccion-titulo h2 {
+            margin-bottom: 0.2rem;
+            color: #5a0030;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="nav-container">
+        <div class="logo">
+            <div class="logo-circle"></div>
+            <div class="logo-text">ConectaUIDE</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#portada">Portada</a></li>
+                <li><a href="#marco-teorico">Marco teórico</a></li>
+                <li><a href="#desarrollo">Desarrollo</a></li>
+                <li><a href="#prototipos">Prototipos</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+                <li><a href="#reflexion">Reflexión</a></li>
+                <li><a href="#bibliografia">Bibliografía</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- PORTADA -->
+    <section id="portada" class="portada">
+        <!-- Logo UIDE: guarda la imagen como uide_logo.png -->
+    
+
+        <h1>ConectaUIDE</h1>
+        <h2>Plataforma web de bienestar emocional para estudiantes universitarios ecuatorianos</h2>
+        <span class="chip">Proyecto Final · Aplicación de la Psicología en la Ingeniería y Tecnología</span>
+
+        <div class="portada-datos">
+            <!-- EDITA ESTOS DATOS -->
+            <p><strong>Materia:</strong> Psicología en la Ingeniería y Tecnología</p>
+            <p><strong>Docente:</strong> EMILIA ANDREA DIAZ PATIÑO</p>
+            <p><strong>Integrantes:</strong> Alex Alban y Dehivid Salgado</p>
+            <p><strong>Carrera:</strong> Ingeniería en Sistemas de la Información</p>
+            <p><strong>Universidad:</strong> UIDE</p>
+            <p><strong>Fecha:</strong> 14/12/2025</p>
+        </div>
+
+        <p class="small-muted">
+            Este documento describe el diseño de una interfaz de usuario adaptada al contexto cultural
+            de estudiantes universitarios ecuatorianos, integrando fundamentos de psicología, neurociencia,
+            motivación y factores culturales.
+        </p>
+    </section>
+
+    <!-- MARCO TEÓRICO -->
+    <section id="marco-teorico">
+        <div class="seccion-titulo">
+            <h2>Marco teórico</h2>
+            <span class="badge">Fase 1 · Fundamentación</span>
+        </div>
+        <p class="subtitulo">
+            En esta sección se sintetizan los principales conceptos de Psicología, Neurociencia, Sensación y Percepción,
+            Motivación, Memoria y Factores Culturales aplicados al diseño de interfaces de usuario.
+        </p>
+
+        <div class="col-2">
+            <div>
+                <div class="tarjeta">
+                    <h3>Psicología y neurociencia en ingeniería</h3>
+                    <p>
+                        La psicología cognitiva y la neurociencia aportan modelos sobre cómo las personas perciben,
+                        procesan y recuerdan la información en entornos digitales. En ingeniería de software, esto se
+                        traduce en diseñar interfaces que respeten las limitaciones de la atención, la memoria de trabajo
+                        y la carga cognitiva.
+                    </p>
+                    <p>
+                        El cerebro no procesa toda la información disponible, sino que selecciona estímulos relevantes.
+                        Por ello, una interfaz debe presentar opciones claras, jerarquizadas y consistentes. El exceso de
+                        elementos visuales puede generar saturación y empeorar la toma de decisiones del usuario.
+                    </p>
+                </div>
+
+                <div class="tarjeta">
+                    <h3>Sensación y percepción en interfaces</h3>
+                    <p>
+                        La <strong>sensación</strong> se refiere a la recepción de estímulos mediante los sentidos, mientras que la
+                        <strong>percepción</strong> implica la interpretación que el cerebro hace de esos estímulos. En diseño de UI,
+                        colores, tamaños, formas y espacios en blanco influyen directamente en cómo el usuario organiza
+                        mentalmente la pantalla.
+                    </p>
+                    <p>
+                        El uso estratégico del color permite codificar estados, prioridades o categorías. La Gestalt
+                        sugiere que las personas tienden a agrupar elementos relacionados, por lo que la proximidad,
+                        alineación y repetición visual ayudan a que la interfaz sea más intuitiva. Una buena jerarquía
+                        visual guía el recorrido del ojo y facilita localizar la información importante.
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <div class="tarjeta">
+                    <h3>Motivación y memoria</h3>
+                    <p>
+                        La motivación puede ser intrínseca (interés personal, crecimiento) o extrínseca (recompensas,
+                        reconocimiento). En una interfaz, el uso de mensajes positivos, retroalimentación inmediata y
+                        sensación de progreso puede incrementar la motivación del usuario para continuar utilizando el
+                        sistema.
+                    </p>
+                    <p>
+                        La memoria interviene en la capacidad del usuario para recordar dónde se encuentra cierta opción
+                        o cómo realizar una tarea. Diseños consistentes, iconografía clara y textos breves facilitan la
+                        formación de hábitos y reducen la necesidad de “reaprender” cada vez que se usa la aplicación.
+                    </p>
+                </div>
+
+                <div class="tarjeta">
+                    <h3>Factores culturales en el uso de tecnología</h3>
+                    <p>
+                        La cultura influye en los valores, el lenguaje, los símbolos y la manera en que las personas se
+                        relacionan con la tecnología. Elementos como colores, expresiones verbales, iconografía y estilo
+                        de comunicación pueden ser interpretados de forma distinta según el contexto cultural.
+                    </p>
+                    <p>
+                        En el caso de estudiantes universitarios ecuatorianos, la tecnología suele combinarse con
+                        dinámicas de grupo, chats, humor y apoyo mutuo. Por ello, una interfaz dirigida a este público
+                        puede beneficiarse de un lenguaje cercano, referencias al contexto académico local y elementos
+                        visuales que transmitan comunidad y colaboración.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESARROLLO DEL PROYECTO -->
+    <section id="desarrollo">
+        <div class="seccion-titulo">
+            <h2>Desarrollo del proyecto</h2>
+            <span class="badge">Fase 2 · Definición y diseño del producto</span>
+        </div>
+
+        <h3>Descripción del producto: ConectaUIDE</h3>
+        <p>
+            <strong>ConectaUIDE</strong> es una aplicación web orientada al bienestar emocional de estudiantes universitarios
+            ecuatorianos, especialmente de carreras de Ingeniería y Tecnología. Su objetivo principal es ofrecer un
+            espacio sencillo donde los estudiantes puedan:
+        </p>
+        <ul class="lista-limpia">
+            <li>Registrar su estado emocional diario de forma rápida y visual.</li>
+            <li>Visualizar un “mapa emocional” del curso o grupo, a nivel general.</li>
+            <li>Compartir y consultar consejos de estudio y autocuidado entre compañeros.</li>
+            <li>Acceder a recordatorios básicos de hábitos saludables durante el semestre.</li>
+        </ul>
+        <p>
+            La propuesta se enfoca en integrar principios de psicología, neurociencia y motivación en una interfaz que
+            reduzca la sobrecarga cognitiva, facilite la percepción y aproveche el contexto cultural cercano a los
+            estudiantes ecuatorianos.
+        </p>
+
+        <h3>Grupo cultural seleccionado</h3>
+        <p>
+            El grupo cultural elegido está compuesto por <strong>estudiantes universitarios ecuatorianos de la ciudad de Quito
+            y el Valle de los Chillos</strong>, que cursan carreras de Ingeniería y Tecnología. Este grupo se caracteriza por:
+        </p>
+        <ul class="lista-limpia">
+            <li>Un alto nivel de exposición a dispositivos móviles y plataformas digitales.</li>
+            <li>Un fuerte énfasis en el rendimiento académico y en “sacar el semestre”.</li>
+            <li>Uso frecuente de chats grupales, humor y apoyo entre “panas” para sobrellevar el estrés.</li>
+            <li>Un lenguaje cotidiano que mezcla términos académicos con expresiones informales locales.</li>
+        </ul>
+        <p>
+            Se eligió este grupo porque representa el propio contexto de los autores del proyecto, lo que facilita
+            comprender sus necesidades reales y adaptar el diseño a su manera concreta de comunicarse, organizarse y
+            experimentar el estrés académico.
+        </p>
+
+        <h3>Aplicación de la teoría al diseño de las pantallas</h3>
+
+        <div class="tarjeta">
+            <h3>Pantalla de inicio / Dashboard</h3>
+            <p>
+                La pantalla de inicio presenta el nombre de la aplicación, un breve subtítulo y botones grandes para
+                acceder a las secciones principales: <em>Mi estado hoy</em>, <em>Mapa emocional</em>, <em>Tips de panas</em> y
+                <em>Autocuidado</em>. Con ello se busca:
+            </p>
+            <ul class="lista-limpia">
+                <li><strong>Reducir la carga cognitiva:</strong> pocas opciones visibles al mismo tiempo.</li>
+                <li><strong>Facilitar la percepción:</strong> botones claramente diferenciados mediante color e iconos.</li>
+                <li><strong>Motivación:</strong> la interfaz transmite orden y control sobre la experiencia académica.</li>
+            </ul>
+            <p class="quote">
+                Usar un diseño limpio, con espacios en blanco y jerarquía visual, ayuda a que el estudiante ubique
+                rápidamente qué acción quiere realizar, sin sentirse abrumado por menús complejos.
+            </p>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Pantalla “Mi estado hoy”</h3>
+            <p>
+                Esta pantalla permite que el usuario seleccione cómo se siente por medio de emojis grandes
+                (estresado, neutral, tranquilo, motivado) y un control de intensidad de estrés. La codificación por color
+                (rojos/naranjas para estrés, verdes para calma) apoya la interpretación inmediata del estado.
+            </p>
+            <ul class="lista-limpia">
+                <li><strong>Sensación y percepción:</strong> el tamaño de los emojis y el contraste de colores orientan la atención.</li>
+                <li><strong>Neurociencia y toma de decisiones:</strong> la interfaz simplifica la tarea a una elección rápida.</li>
+                <li><strong>Motivación:</strong> al registrar su estado, el estudiante recibe un mensaje breve de refuerzo positivo.</li>
+            </ul>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Pantalla “Mapa emocional del curso”</h3>
+            <p>
+                El mapa emocional se presenta como un gráfico que resume el porcentaje de estudiantes que se sienten
+                estresados, tranquilos, neutrales o motivados. Aunque en este prototipo los datos son simulados, la
+                visualización está diseñada para que la información sea comprensible de un vistazo.
+            </p>
+            <ul class="lista-limpia">
+                <li><strong>Percepción:</strong> las barras o secciones de color facilitan comparar proporciones.</li>
+                <li><strong>Psicología social:</strong> ver que otros también sienten estrés puede reducir la sensación de aislamiento.</li>
+                <li><strong>Memoria visual:</strong> el estudiante recuerda más fácilmente el “clima emocional” del grupo que una lista de números.</li>
+            </ul>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Pantalla “Tips de panas”</h3>
+            <p>
+                En esta sección se muestran tarjetas con consejos breves escritos en lenguaje cercano, atribuidos a
+                compañeros ficticios (por ejemplo, “Mateo”, “Camila”). Se integran expresiones propias del habla juvenil
+                ecuatoriana y referencias al contexto de parciales y trabajos.
+            </p>
+            <ul class="lista-limpia">
+                <li><strong>Factores culturales:</strong> uso de expresiones locales y rol de los “panas” como fuente de apoyo.</li>
+                <li><strong>Motivación:</strong> los consejos se perciben como realistas y alcanzables.</li>
+                <li><strong>Memoria:</strong> frases cortas, acompañadas de iconos, facilitan recordar las estrategias sugeridas.</li>
+            </ul>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Pantalla “Autocuidado”</h3>
+            <p>
+                La sección de autocuidado presenta recomendaciones básicas relacionadas con sueño, hidratación y pausas
+                activas, acompañadas de iconos sencillos (vaso de agua, cama, libro). El diseño evita moralizar y se
+                enfoca en sugerencias concretas que el estudiante puede aplicar durante la semana de clases.
+            </p>
+            <ul class="lista-limpia">
+                <li><strong>Neurociencia:</strong> el descanso y la hidratación están relacionados con un mejor rendimiento cognitivo.</li>
+                <li><strong>Diseño de interacción:</strong> se plantean recordatorios visuales fáciles de identificar.</li>
+                <li><strong>Percepción:</strong> iconos simples y repetidos ayudan a reforzar el hábito con el tiempo.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- PROTOTIPOS -->
+    <section id="prototipos">
+        <div class="seccion-titulo">
+            <h2>Prototipos de la interfaz</h2>
+            <span class="badge">Fase 3 · Prototipado</span>
+        </div>
+        <p class="subtitulo">
+            A continuación se presentan las capturas de los prototipos diseñados en la herramienta de preferencia
+            (por ejemplo, Figma o Adobe XD). En el archivo HTML, reemplace las imágenes de ejemplo por las exportadas
+            desde el prototipado.
+        </p>
+
+        <div class="prototipos-grid">
+            <div class="prototipo-card">
+                <!-- Reemplaza prototipo1.png por tu imagen -->
+                
+                <strong>Pantalla de inicio / Dashboard</strong>
+                <p>Accesos directos a las secciones principales con botones grandes e iconografía clara.</p>
+            </div>
+            <div class="prototipo-card">
+                
+                <strong>Pantalla “Mi estado hoy”</strong>
+                <p>Selección rápida del estado emocional mediante emojis y colores codificados.</p>
+            </div>
+            <div class="prototipo-card">
+                
+                <strong>Pantalla “Mapa emocional”</strong>
+                <p>Visualización gráfica del clima emocional general del grupo de estudiantes.</p>
+            </div>
+            <div class="prototipo-card">
+                
+                <strong>Tips de panas y autocuidado</strong>
+                <p>Listas de consejos breves y recordatorios de hábitos saludables, adaptados al contexto local.</p>
+            </div>
+        </div>
+
+        <p class="small-muted">
+            Nota: las imágenes presentadas son marcadores de posición. En la entrega final se recomienda utilizar
+            prototipos de alta fidelidad con tipografías legibles y contraste adecuado para impresión o visualización digital.
+        </p>
+    </section>
+
+    <!-- RESULTADOS -->
+    <section id="resultados">
+        <div class="seccion-titulo">
+            <h2>Resultados de las pruebas de usabilidad</h2>
+            <span class="badge">Fase 3 · Evaluación</span>
+        </div>
+
+        <p>
+            Para evaluar la usabilidad del diseño, se realizaron pruebas informales con compañeros y familiares que
+            simulan pertenecer al grupo objetivo (estudiantes universitarios con carga académica alta). A cada
+            participante se le pidió que:
+        </p>
+        <ul class="lista-limpia">
+            <li>Registrara su estado en la pantalla “Mi estado hoy”.</li>
+            <li>Interpretara la información mostrada en el “Mapa emocional del curso”.</li>
+            <li>Explorara las secciones “Tips de panas” y “Autocuidado”.</li>
+        </ul>
+
+        <table class="tabla-simple">
+            <thead>
+            <tr>
+                <th>Aspecto evaluado</th>
+                <th>Resultado observado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Facilidad para registrar el estado emocional</td>
+                <td>La mayoría de participantes comprendió de inmediato el uso de emojis y colores, y completó la tarea en pocos segundos.</td>
+            </tr>
+            <tr>
+                <td>Comprensión del mapa emocional</td>
+                <td>Los usuarios interpretaron correctamente qué porcentaje del grupo se encontraba estresado o tranquilo, sin necesidad de explicaciones adicionales.</td>
+            </tr>
+            <tr>
+                <td>Valor percibido de los tips</td>
+                <td>Los consejos fueron vistos como realistas y cercanos a la vida académica; algunos usuarios sugirieron agregar más ejemplos específicos por materia.</td>
+            </tr>
+            <tr>
+                <td>Sensación general del diseño</td>
+                <td>La interfaz se percibió “simple” y “tranquila”, lo que coincide con el objetivo de reducir la saturación visual.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>
+            En general, las pruebas indicaron que el diseño es intuitivo y coherente con las necesidades del grupo
+            cultural seleccionado. Los comentarios sugieren que la aplicación podría integrarse como complemento a los
+            canales de comunicación ya existentes (por ejemplo, grupos de mensajería instantánea) para tener una visión
+            más clara del bienestar emocional durante el semestre.
+        </p>
+    </section>
+
+    <!-- REFLEXIÓN FINAL -->
+    <section id="reflexion">
+        <div class="seccion-titulo">
+            <h2>Reflexión final de la asignatura</h2>
+            <span class="badge">Reflexión personal</span>
+        </div>
+
+        <h3>¿Cuál es el tema que más me gustó? ¿Por qué?</h3>
+        <p>
+            El tema que más me gustó fue la relación entre <strong>psicología cognitiva y diseño de interfaces</strong>, especialmente
+            la forma en que la atención, la memoria y la percepción influyen en decisiones aparentemente simples como
+            hacer clic en un botón o abandonar una aplicación. Comprender que una mala interfaz no solo es “incómoda”,
+            sino que también puede aumentar el estrés y la frustración del usuario, cambió mi manera de pensar sobre el
+            desarrollo de software.
+        </p>
+
+        <h3>¿Cuál es el tema que menos me gustó? ¿Por qué?</h3>
+        <p>
+            El tema que menos me gustó fue el de algunos modelos teóricos más abstractos de la motivación, ya que a veces
+            resultan muy conceptuales y alejados de ejemplos concretos. Sin embargo, al aplicarlos al diseño de ConectaUIDE
+            fue más fácil entender cómo se pueden traducir en elementos visibles, como logros, mensajes de refuerzo o
+            sensación de progreso.
+        </p>
+
+        <h3>Aplicación de los conceptos a mis competencias profesionales</h3>
+        <p>
+            Como futuro profesional en ingeniería y tecnología, la asignatura me mostró que diseñar software no es solo
+            escribir código eficiente, sino también comprender a las personas que usarán ese código. Conocer principios de
+            psicología y neurociencia me permite:
+        </p>
+        <ul class="lista-limpia">
+            <li>Tomar decisiones de diseño más responsables, pensando en la carga cognitiva del usuario.</li>
+            <li>Crear interfaces más inclusivas y adaptadas al contexto cultural donde se van a utilizar.</li>
+            <li>Comunicarme mejor con profesionales de otras áreas (por ejemplo, psicólogos o diseñadores UX).</li>
+        </ul>
+
+        <h3>Aporte de la materia a la resolución de problemas en ciencias de la computación</h3>
+        <p>
+            La materia aportó una mirada humana a problemas típicos de la computación, como la baja adopción de una
+            plataforma, el abandono de un sistema o la dificultad de los usuarios para completar una tarea. Al integrar
+            conceptos de psicología, es posible proponer soluciones que no se limitan a “mejorar el hardware” o “optimizar
+            el algoritmo”, sino que modifican la experiencia de uso para que sea más clara, motivadora y respetuosa con las
+            capacidades y límites de la mente humana.
+        </p>
+    </section>
+
+    <!-- CONCLUSIONES -->
+    <section id="conclusiones">
+        <div class="seccion-titulo">
+            <h2>Conclusiones generales</h2>
+            <span class="badge">Cierre del proyecto</span>
+        </div>
+        <p>
+            El desarrollo de <strong>ConectaUIDE</strong> permitió integrar de manera práctica los contenidos de psicología,
+            neurociencia, motivación y factores culturales en un producto de software orientado a un contexto real:
+            estudiantes universitarios ecuatorianos con alta carga académica.
+        </p>
+        <p>
+            El análisis teórico evidenció que la percepción, la memoria y la motivación no son elementos abstractos, sino
+            procesos que se ven directamente afectados por el diseño de la interfaz. Un uso estratégico del color, una
+            jerarquía visual clara y mensajes breves pueden contribuir a que el usuario se sienta acompañado en lugar de
+            abrumado.
+        </p>
+        <p>
+            Finalmente, el proyecto refuerza la idea de que la ingeniería de software efectiva requiere comprender tanto
+            los sistemas técnicos como las personas que los utilizan. Aplicar la psicología en la tecnología no solo
+            mejora la usabilidad, sino que también puede aportar al bienestar emocional de los usuarios en contextos
+            exigentes como la vida universitaria.
+        </p>
+    </section>
+
+    <!-- BIBLIOGRAFÍA -->
+    <section id="bibliografia">
+        <div class="seccion-titulo">
+            <h2>Bibliografía</h2>
+            <span class="badge">Formato APA</span>
+        </div>
+
+        <p class="ref-item">
+            Norman, D. A. (2013). <em>The design of everyday things</em>. Basic Books.
+        </p>
+        <p class="ref-item">
+            Wickens, C. D., Lee, J. D., Liu, Y., &amp; Becker, S. E. G. (2004). <em>Introduction to human factors engineering</em>.
+            Pearson.
+        </p>
+        <p class="ref-item">
+            Goldstein, E. B. (2019). <em>Cognitive psychology: Connecting mind, research, and everyday experience</em>. Cengage.
+        </p>
+        <p class="ref-item">
+            Hofstede, G., Hofstede, G. J., &amp; Minkov, M. (2010). <em>Cultures and organizations: Software of the mind</em>.
+            McGraw-Hill.
+        </p>
+        <p class="small-muted">
+            Nota: Se recomienda complementar la bibliografía con artículos académicos o materiales específicos utilizados
+            en clase, siguiendo el formato APA actualizado.
+        </p>
+    </section>
+</main>
+
+<button id="btn-top">↑ Arriba</button>
+
+<script>
+    const btnTop = document.getElementById("btn-top");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 400) {
+            btnTop.style.display = "block";
+        } else {
+            btnTop.style.display = "none";
+        }
+    });
+
+    btnTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+</script>
+</body>
+</html>
